@@ -36,9 +36,9 @@ app.get('/logout', function(req, res) {
 app.post('/login', (req, res, next) => {
 
     console.log('login acessado');
-    console.log(process.env.YTOUR_SECRET);
+    console.log(process.env.SECRET);
 
-    if (req.body.pwd === process.env.YTOUR_SECRET){
+    if (req.body.pwd === process.env.SECRET){
       
         //auth ok
         const id = 1; //esse id viria do banco de dados
