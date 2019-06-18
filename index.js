@@ -1,5 +1,6 @@
 //index.js
 require("dotenv-safe").load();
+require("dotenv-safe").config({ allowEmptyValues: true });
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
@@ -36,7 +37,7 @@ app.post('/login', (req, res, next) => {
 
     console.log('login acessado');
     console.log(process.env.YTOUR_SECRET);
-    
+
     if (req.body.pwd === process.env.YTOUR_SECRET){
       
         //auth ok
