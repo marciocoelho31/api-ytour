@@ -1,5 +1,9 @@
 //index.js
-require('dotenv-safe').load();
+if (process.env.NODE_ENV !== 'production') { 
+    require('dotenv-safe').config({
+    allowEmptyValues: true
+  });
+}
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
@@ -20,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get('/', (req, res, next) => {
-  console.log('Api funcionando...', process.env.NODE_ENV);
+  console.log('Api funcionando...');
 })
 
 // app.get('/users', verifyJWT, (req, res, next) => {
@@ -48,7 +52,7 @@ app.post('/login', (req, res, next) => {
         res.status(200).send({ auth: true, token: token });
     }
     else {
-      res.status(500).send('Login inválido! ' + process.env.YT_SECRET + "--");
+      res.status(500).send('Login inválido!');
     }
 })
 
