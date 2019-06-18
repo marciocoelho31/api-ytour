@@ -1,6 +1,4 @@
 //index.js
-require("dotenv-safe").load();
-require("dotenv-safe").config({ allowEmptyValues: true });
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
