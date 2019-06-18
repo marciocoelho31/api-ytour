@@ -1,5 +1,6 @@
 //index.js
 require("dotenv-safe").load();
+require('dotenv-safe').config();
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
