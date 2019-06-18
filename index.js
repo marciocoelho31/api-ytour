@@ -18,6 +18,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
+app.get('/', (req, res, next) => {
+  console.log('Api funcionando...');
+})
+
 // app.get('/users', verifyJWT, (req, res, next) => {
 //   userServiceProxy(req, res, next);
 // })
@@ -30,15 +34,10 @@ app.get('/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
-app.get('/login', function(req, res) {
-  res.status(200).send({ auth: false, token: null });
-  res.status(500).send('login acessado! ' + process.env.SECRET);
-});
-
 //authentication
 app.post('/login', (req, res, next) => {
 
-    if (req.body.pwd === process.env.SECRET){
+    if (req.body.pwd === process.env.YT_SECRET){
       
         //auth ok
         const id = 1; //esse id viria do banco de dados
