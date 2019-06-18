@@ -70,5 +70,6 @@ function verifyJWT(req, res, next){
 
 // Proxy request
 var server = http.createServer(app);
+var port = process.env.PORT || 3000;
 //console.log('API funcionando...')
-server.listen(3000);
+server.listen(port);
