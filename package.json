@@ -1,7 +1,7 @@
 {
-  "name": "api-caster-office",
+  "name": "api-ytour",
   "version": "1.0.0",
-  "description": "Api para sistema Caster Office.",
+  "description": "Api para app Ytour.",
   "main": "index.js",
   "scripts": {
     "start": "node index"
