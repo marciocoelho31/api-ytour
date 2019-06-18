@@ -32,11 +32,13 @@ app.get('/logout', function(req, res) {
   res.status(200).send({ auth: false, token: null });
 });
 
+app.get('/login', function(req, res) {
+  res.status(200).send({ auth: false, token: null });
+  res.status(500).send('login acessado! ' + process.env.SECRET);
+});
+
 //authentication
 app.post('/login', (req, res, next) => {
-
-    console.log('login acessado');
-    console.log(process.env.SECRET);
 
     if (req.body.pwd === process.env.SECRET){
       
@@ -70,5 +72,5 @@ function verifyJWT(req, res, next){
 
 // Proxy request
 var server = http.createServer(app);
-console.log('API funcionando...')
+//console.log('API funcionando...')
 server.listen(3000);
