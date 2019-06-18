@@ -1,9 +1,5 @@
 //index.js
-if (process.env.NODE_ENV !== 'production') { 
-    require('dotenv-safe').config({
-    allowEmptyValues: true
-  });
-}
+require('dotenv-safe').load();
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
