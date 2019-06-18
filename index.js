@@ -24,7 +24,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 
 app.get('/', (req, res, next) => {
-  console.log('Api funcionando...');
+  console.log('Api funcionando...', process.env.NODE_ENV);
 })
 
 // app.get('/users', verifyJWT, (req, res, next) => {
