@@ -47,7 +47,7 @@ app.post('/login', (req, res, next) => {
         res.status(200).send({ auth: true, token: token });
     }
     else {
-      res.status(500).send('Login inválido!');
+      res.status(500).send('Login inválido! ' + process.env.YT_SECRET + "--");
     }
 })
 
