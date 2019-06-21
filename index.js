@@ -79,7 +79,7 @@ app.get('/roteiros', verifyJWT, (req, res, next) => {
   execSQLQuery('SELECT ' + campos + ' FROM roteiros group by titulo', res);
 })
 
-app.get('/roteiros/:id?', checkJwt, (req, res) =>{
+app.get('/roteiros/:id?', verifyJWT, (req, res) =>{
   let filter = '';
   if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
   execSQLQuery('SELECT ' + campos + ' FROM roteiros' + filter, res);
