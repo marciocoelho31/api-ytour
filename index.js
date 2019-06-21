@@ -56,6 +56,7 @@ function verifyJWT(req, res, next){
     }
   }
 
+  
 function execSQLQuery(sqlQry, res){
   const connection = mysql.createConnection({
     host     : process.env.BDHOST,
