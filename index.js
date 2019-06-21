@@ -14,8 +14,6 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require('helmet');
 
-const roteirosServiceProxy = httpProxy('https://guarded-mountain-27216.herokuapp.com/roteiros');
-
 app.use(logger('dev'));
 app.use(helmet());
 app.use(express.json());
@@ -24,10 +22,6 @@ app.use(cookieParser());
 
 app.get('/', (req, res, next) => {
   console.log('Api funcionando...');
-})
-
-app.get('/roteiros', verifyJWT, (req, res, next) => {
-  roteirosServiceProxy(req, res, next);
 })
 
 //authentication
@@ -62,6 +56,37 @@ function verifyJWT(req, res, next){
       });
     }
   }
+
+function execSQLQuery(sqlQry, res){
+  const connection = mysql.createConnection({
+    host     : process.env.BDHOST,
+    port     : process.env.BDPORT,
+    user     : process.env.BDUSER,
+    password : process.env.BDPWD,
+    database : process.env.BDNAME
+  });
+
+  connection.query(sqlQry, function(error, results, fields){
+      if(error) 
+        res.json(error);
+      else
+        res.json(results);
+      connection.end();
+  });
+}
+
+const campos = 'titulo, id, cia, nomehotel1, cidade_saida, pais, regiao, valores_apartir, ' + 
+  'cidade_destino, datasaida_str, datachegada_str, empresa_nomefantasia, cidadedestinoid';
+
+app.get('/roteiros', verifyJWT, (req, res, next) => {
+  execSQLQuery('SELECT ' + campos + ' FROM roteiros group by titulo', res);
+})
+
+app.get('/roteiros/:id?', checkJwt, (req, res) =>{
+  let filter = '';
+  if(req.params.id) filter = ' WHERE ID=' + parseInt(req.params.id);
+  execSQLQuery('SELECT ' + campos + ' FROM roteiros' + filter, res);
+})
 
 // Proxy request
 var server = http.createServer(app);
