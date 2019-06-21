@@ -1,21 +1,20 @@
 //index.js
-if (process.env.NODE_ENV !== 'production') { 
+//if (process.env.NODE_ENV !== 'production') { 
     require('dotenv-safe').config({
     allowEmptyValues: true
   });
-}
+//}
 var jwt = require('jsonwebtoken');
 
 var http = require('http');
 const express = require('express')
-//const httpProxy = require('express-http-proxy')
+const httpProxy = require('express-http-proxy')
 const app = express()
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const helmet = require('helmet');
 
-// const userServiceProxy = httpProxy('http://localhost:3001');
-// const productsServiceProxy = httpProxy('http://localhost:3002');
+const roteirosServiceProxy = httpProxy('https://guarded-mountain-27216.herokuapp.com/roteiros');
 
 app.use(logger('dev'));
 app.use(helmet());
@@ -27,17 +26,9 @@ app.get('/', (req, res, next) => {
   console.log('Api funcionando...');
 })
 
-// app.get('/users', verifyJWT, (req, res, next) => {
-//   userServiceProxy(req, res, next);
-// })
-
-// app.get('/products', verifyJWT, (req, res, next) => {
-//   productsServiceProxy(req, res, next);
-// })
-
-app.get('/logout', function(req, res) {
-  res.status(200).send({ auth: false, token: null });
-});
+app.get('/roteiros', verifyJWT, (req, res, next) => {
+  roteirosServiceProxy(req, res, next);
+})
 
 //authentication
 app.post('/login', (req, res, next) => {
